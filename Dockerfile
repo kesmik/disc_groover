@@ -1,8 +1,8 @@
-FROM python:3.12-slim-bookworm
+FROM openscad/openscad:dev.2026-10-20
 
 RUN apt-get update \
     && apt-get install -y --no-install-recommends \
-        openscad \
+        python3 \
         fonts-liberation \
     && rm -rf /var/lib/apt/lists/*
 
@@ -13,4 +13,4 @@ ENV QT_QPA_PLATFORM=offscreen \
 WORKDIR /app
 COPY generate.py disc_groover.scad ./
 
-ENTRYPOINT ["python", "/app/generate.py"]
+ENTRYPOINT ["python3", "/app/generate.py"]

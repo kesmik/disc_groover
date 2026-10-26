@@ -218,40 +218,22 @@ module white_disc(z = 0) {
 }
 
 
-/* generate black disc */
 module black_disc() {
-
     color([0.10, 0.11, 0.12])
-
-    difference() {
-
-        union() {
-
-            linear_extrude(height = black_t)
-                disc_outline();
-            
-            /* Raised barcode inserts */
-            if (use_raised_inserts == true) {
-                translate([0, 0, black_t])
-                linear_extrude(height = white_t)
-
-                for (i = [0:9]) {
-                    barcode_stripe(
-                        i,
-                        fit_clearance
-                    );
-                }
-            }
+    union() {
+        linear_extrude(height = black_t)
+        difference() {
+            disc_outline();
+            decimal_id_cutout();
         }
 
-        /* Cut mirrored decimal number through BLACK backing only. */
-        translate([0, 0, -0.01])
-
-        linear_extrude(
-            height = black_t + 0.02
-        )
-
-        decimal_id_cutout();
+        if (use_raised_inserts) {
+            translate([0, 0, black_t])
+            linear_extrude(height = white_t)
+            for (i = [0:9]) {
+                barcode_stripe(i, fit_clearance);
+            }
+        }
     }
 }
 
