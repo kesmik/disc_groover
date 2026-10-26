@@ -1,0 +1,8 @@
+output/
+examples/
+*.stl
+*.png
+__pycache__/
+*.pyc
+.git/
+.venv/
